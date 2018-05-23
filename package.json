@@ -1,0 +1,20 @@
+{
+  "name": "$RENAME-ME",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "node scripts/deploy",
+    "test": "ask simulate --locale en-US --text"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk": "^2.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "rimraf": "^2.6.2"
+  }
+}

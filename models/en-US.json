@@ -1,0 +1,22 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "$INVOCATION-NAME",
+      "intents": [
+        {
+          "name": "ExampleIntent",
+          "samples": [
+            "hello",
+            "hello there",
+            "hi",
+            "hello world",
+            "hi there",
+            "hey",
+            "hey there"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}

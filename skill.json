@@ -1,0 +1,26 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "@TODO: Simple purpose of the skill.",
+          "examplePhrases": [
+            "Alexa, open @TODO $SKILL-NAME"
+          ],
+          "name": "@TODO: $SKILL-NAME",
+          "description": "@TODO Longer description of skill and what it does."
+        }
+      },
+      "isAvailableWorldwide": true,
+      "category": "EDUCATION_AND_REFERENCE"
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "src"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}
