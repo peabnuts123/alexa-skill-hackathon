@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "$INVOCATION-NAME",
+      "invocationName": "scrum master",
       "intents": [
         {
           "name": "ExampleIntent",

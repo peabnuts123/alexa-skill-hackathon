@@ -1,9 +1,10 @@
 {
-  "name": "$RENAME-ME",
+  "name": "alexa-scrum-master",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "init": "ask init",
     "deploy": "node scripts/deploy",
     "test": "ask simulate --locale en-US --text"
   },

@@ -3,12 +3,12 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "@TODO: Simple purpose of the skill.",
+          "summary": "Scrum master",
           "examplePhrases": [
-            "Alexa, open @TODO $SKILL-NAME"
+            "Alexa, open stand up reports"
           ],
-          "name": "@TODO: $SKILL-NAME",
-          "description": "@TODO Longer description of skill and what it does."
+          "name": "Scrum Master",
+          "description": "This alexa skill "
         }
       },
       "isAvailableWorldwide": true,
