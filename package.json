@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "init": "ask init",
     "deploy": "node scripts/deploy",
     "test": "ask simulate --locale en-US --text"
   },
