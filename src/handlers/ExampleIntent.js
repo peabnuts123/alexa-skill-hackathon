@@ -1,9 +1,7 @@
-const intentWithName = require('../util/intentWithName');
-
-/* @TODO remove / refactor this file, it is just an example. */
+const { isIntentWithName } = require('../util/handlerUtils');
 
 module.exports = {
-  canHandle: intentWithName('ExampleIntent'),
+  canHandle: (handlerInput) => isIntentWithName(handlerInput, 'ExampleIntent'),
   handle(handlerInput) {
     const speechText = 'This is an example intent.';
 
