@@ -1,15 +1,13 @@
 const Alexa = require('ask-sdk');
 
 // Handlers
-const LaunchRequestHandler = require('./handlers/LaunchRequest');
-const HelloWorldIntentHandler = require('./handlers/HelloWorldIntent');
-const SessionEndedRequestHandler = require('./handlers/SessionEndedRequest');
+const CompleteStandupHandler = require('./handlers/CompleteStandup');
+const ReportHandler = require('./handlers/Report');
 
 
 exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
-    LaunchRequestHandler,
-    HelloWorldIntentHandler,
-    SessionEndedRequestHandler,
+    CompleteStandupHandler,
+    ReportHandler,
 )
   .lambda();

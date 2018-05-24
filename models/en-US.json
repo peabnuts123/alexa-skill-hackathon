@@ -4,15 +4,21 @@
       "invocationName": "scrum master",
       "intents": [
         {
-          "name": "ExampleIntent",
+          "name": "CompleteStandupIntent",
           "samples": [
-            "hello",
-            "hello there",
-            "hi",
-            "hello world",
-            "hi there",
-            "hey",
-            "hey there"
+            "standup is complete",
+            "standup over",
+            "standup done"
+          ]
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "ReportIntent",
+          "samples": [
+            "literally anything"
           ]
         }
       ],

@@ -1,0 +1,150 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "scrum master",
+      "intents": [
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "NameIntent",
+          "slots": [
+            {
+              "name": "name",
+              "type": "AMAZON.GB_FIRST_NAME"
+            }
+          ],
+          "samples": [
+            "no more",
+            "no one",
+            "no-one",
+            "my name is {name}"
+          ]
+        },
+        {
+          "name": "StartStandup",
+          "slots": [
+            {
+              "name": "name",
+              "type": "AMAZON.GB_FIRST_NAME",
+              "samples": [
+                "{name} can start",
+                "{name} here",
+                "{name}",
+                "{name} can",
+                "{name} will"
+              ]
+            }
+          ],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "ReportIntent",
+          "slots": [
+            {
+              "name": "report",
+              "type": "AMAZON.LITERAL",
+              "samples": [
+                "{report}"
+              ]
+            }
+          ],
+          "samples": [
+            "yesterday i did {report}"
+          ]
+        }
+      ],
+      "types": []
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "StartStandup",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "name",
+              "type": "AMAZON.GB_FIRST_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.555447597435.1122246546245"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ReportIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "report",
+              "type": "AMAZON.LITERAL",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1083385357578.211483680037"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.642968015411.680898323882",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Who is reporting?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.555447597435.1122246546245",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Who would like to begin the standup?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Who would like to start?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Who will start the stand up?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Who will be starting us off?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1083385357578.211483680037",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Sorry, I didn't quite catch that"
+          }
+        ]
+      }
+    ]
+  }
+}
