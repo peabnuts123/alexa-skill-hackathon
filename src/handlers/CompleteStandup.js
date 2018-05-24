@@ -1,26 +1,18 @@
 const { isIntentWithName } = require('../util/handlerUtils');
 const { isCurrentState } = require('../util/sessionState');
+const standupData = require('../util/standupData');
 
 module.exports = {
-  /* 
-    When:
-     state = ready && intent = 'CompleteStandupIntent'
-   */
   canHandle: (handlerInput) => {
-    isCurrentState(handlerInput, 'ready') && isIntentWithName('CompleteStandupIntent');
+    return isCurrentState(handlerInput, 'who') && isIntentWithName(handlerInput, 'CompleteStandupIntent');
   },
   handle(handlerInput) {
-    /* 
-      Method:
-        "Cool i'll send that"
-        Send that.
-        exit session.
-     */
+    // @TODO actually send to somewhere
+    console.log("Finished standup. Standup Data:")
+    console.log(standupData.getAll());
 
-    // @TODO;
-    
     return handlerInput.responseBuilder
-      .speak("@TODO standup over. Thanks.")
+      .speak("Cool, I'll email a summary of that to you.")
 
       // @TODO new Date() will not be pretty lol
       .withSimpleCard('Standup', "Standup is complete at " + new Date() + " .")

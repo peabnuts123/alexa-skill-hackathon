@@ -1,100 +1,55 @@
-const { hasType, isIntentWithName } = require('../util/handlerUtils');
+const { isIntentWithName } = require('../util/handlerUtils');
 const { isCurrentState, setState } = require('../util/sessionState');
+const sessionAttributes = require('../util/sessionAttributes');
+const prompt = require('../util/prompt');
+const slots = require('../util/slots');
+const standupData = require('../util/standupData');
 
 module.exports = {
   canHandle: (handlerInput) => {
-    /* @TODO
-      When:
-          type = launchRequest
-          - state = ready
-            intent name = 'ReportIntent'
-          - state = yesterday
-            intent name = 'ReportIntent' || Amazon.NoIntent
-            - state = today
-            intent name = 'ReportIntent' || Amazon.NoIntent
-     */
-    (hasType(handlerInput, 'LaunchRequest')) ||
-      (isCurrentState(handlerInput, 'ready') && isIntentWithName(handlerInput, 'ReportIntent')) ||
-      (isCurrentState(handlerInput, 'yesterday') && (isIntentWithName(handlerInput, 'ReportIntent') || isIntentWithName('AMAZON.NoIntent'))) ||
+    return (isCurrentState(handlerInput, 'yesterday') && (isIntentWithName(handlerInput, 'ReportIntent') || isIntentWithName('AMAZON.NoIntent'))) ||
       (isCurrentState(handlerInput, 'today') && (isIntentWithName(handlerInput, 'ReportIntent') || isIntentWithName(handlerInput, 'AMAZON.NoIntent')));
   },
   handle(handlerInput) {
-    /* 
-      @TODO 
-      Method:
-        - type = LaunchRequest
-          state = yesterday
-          "Great. So, $person, what did you do yesterday?"
-        - state = ready
-          set state = yesterday
-          "Okay, did you do anything else?"
-        - state = yesterday
-          if (!continuing) => 
-            state = today
-            "Great. What did you do today?"
-          else
-            "Okay, did you do anything else?"
-        - state = today
-          if (!continuing) => 
-            state = ready
-            "Great. Anybody else?"
-          else
-            "Okay, did you do anything else?"
-     */
-    if (hasType(handlerInput, 'LaunchRequest')) {
-      /* Launch request. Person has been nominated to start speaking */
-      // @TODO get person's name
-
-      setState(handlerInput, 'yesterday');
-
-      return handlerInput.responseBuilder
-        .speak("Great. So, @PERSON, what did you work on yesterday?")
-        .withSimpleCard(' @TODO', " @TODO")
-        .getResponse();
-
-    } else if (isCurrentState(handlerInput, 'ready')) {
-      /* Ready and we've begun to report. Somebody has started their turn to talk about yesterday */
-      // @TODO read their data and set state
-
-      setState(handlerInput, 'yesterday');
-
-      return handlerInput.responseBuilder
-        .speak("Okay. Anything else for yesterday?")
-        .withSimpleCard(' @TODO', " @TODO")
-        .getResponse();
-    } else if (isCurrentState(handlerInput, 'yesterday')) {
+    if (isCurrentState(handlerInput, 'yesterday')) {
+      // Check if the user said "no"
       let isFinished = isIntentWithName(handlerInput, "AMAZON.NoIntent");
       if (isFinished) {
         // Finished talking about yesterday
         setState(handlerInput, 'today');
 
-        return handlerInput.responseBuilder
-          .speak("Okay. What are you working on today?")
-          .withSimpleCard(' @TODO', " @TODO")
-          .getResponse();
+        return prompt(handlerInput, "Okay. What are you working on today?");
       } else {
         // Still talking about yesterday
-        return handlerInput.responseBuilder
-          .speak("Okay. Anything else for yesterday?")
-          .withSimpleCard(' @TODO', " @TODO")
-          .getResponse();
+
+        // Get current person from our session attributes
+        let person = sessionAttributes.get(handlerInput, 'currentPerson');
+        // Get the person's summary for yesterday from their response
+        let summary = slots.get(handlerInput, 'Summary');
+        // Update person's summary for yesterday
+        standupData.updatePerson(handlerInput, person, summary, 'yesterday');
+
+        return prompt(handlerInput, "Okay. Anything else for yesterday?");
       }
     } else if (isCurrentState(handlerInput, 'today')) {
+      // Check if the user said "no"
       let isFinished = isIntentWithName(handlerInput, "AMAZON.NoIntent");
       if (isFinished) {
         // Finished talking about today
-        setState(handlerInput, 'ready');
+        setState(handlerInput, 'who');
 
-        return handlerInput.responseBuilder
-          .speak("Cool. Who's next?")
-          .withSimpleCard(' @TODO', " @TODO")
-          .getResponse();
+        return prompt(handlerInput, "Cool. Who's next?");
       } else {
         // Still talking about today
-        return handlerInput.responseBuilder
-          .speak("Okay. Anything else for today?")
-          .withSimpleCard(' @TODO', " @TODO")
-          .getResponse();
+
+        // Get current person from our session attributes
+        let person = sessionAttributes.get(handlerInput, 'currentPerson');
+        // Get the person's summary for today from their response
+        let summary = slots.get(handlerInput, 'Summary');
+        // Update person's summary for today
+        standupData.updatePerson(handlerInput, person, summary, 'today');
+
+        return prompt(handlerInput, "Okay. Anything else for today?");
       }
     } else {
       throw new Error("Invalid state.");

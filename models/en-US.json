@@ -5,6 +5,7 @@
       "intents": [
         {
           "name": "CompleteStandupIntent",
+          "slots": [],
           "samples": [
             "standup is complete",
             "standup over",
@@ -17,12 +18,131 @@
         },
         {
           "name": "ReportIntent",
+          "slots": [
+            {
+              "name": "Summary",
+              "type": "AMAZON.SearchQuery",
+              "samples": [
+                "I will {Summary}",
+                "I did {Summary}",
+                "I was {Summary}",
+                "I am {Summary}",
+                "I am working on {Summary}",
+                "I have been working on"
+              ]
+            }
+          ],
           "samples": [
-            "literally anything"
+            "I will {Summary}",
+            "I {Summary}",
+            "I was {Summary}",
+            "I worked on {Summary}",
+            "I am working on {Summary}",
+            "I was working on {Summary}"
+          ]
+        },
+        {
+          "name": "ReportStartIntent",
+          "slots": [
+            {
+              "name": "Summary",
+              "type": "AMAZON.SearchQuery",
+              "samples": [
+                "I worked on {Summary}",
+                "I did {Summary}",
+                "I was working on {Summary}"
+              ]
+            }
+          ],
+          "samples": [
+            "hi.  {Summary}",
+            "hello.  {Summary}"
+          ]
+        },
+        {
+          "name": "WhoIntent",
+          "slots": [
+            {
+              "name": "Name",
+              "type": "AMAZON.US_FIRST_NAME"
+            }
+          ],
+          "samples": [
+            "{Name}"
           ]
         }
       ],
       "types": []
-    }
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "ReportStartIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "Summary",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1349701611304.792490404655"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ReportIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "Summary",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1255109564989.1448591478715"
+              }
+            }
+          ]
+        },
+        {
+          "name": "WhoIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "Name",
+              "type": "AMAZON.US_FIRST_NAME",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            }
+          ]
+        }
+      ]
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.1349701611304.792490404655",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What did you work on?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1255109564989.1448591478715",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What have you been working on?"
+          }
+        ]
+      }
+    ]
   }
 }
